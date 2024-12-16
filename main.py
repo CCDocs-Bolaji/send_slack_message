@@ -18,7 +18,6 @@ now = datetime.now(est)
 thirty_minutes_ago = now - timedelta(minutes=30)
 
 url = f"https://{user}:{passwd}@login.theccdocs.com/vicidial/admin.php?ADD=700000000000000"
-
 re = requests.get(url)
 
 soup = BS(re.content, 'html.parser')
@@ -54,3 +53,12 @@ for row in rows:
                 href = link_10th_td['href']
                 print("Href:", href)
             # count+=1
+
+# UPDATE
+# url = f"https://{user}:{passwd}@login.theccdocs.com/vicidial/admin.php?ADD=311&list_id=1678"
+# re = requests.get(url)
+# soup = BS(re.content, 'html.parser')
+# if re.status_code == 200:
+#     lala = soup.find('select', attrs={'name': 'campaign_id'})
+#     selected_lala = lala.find('option', attrs={'selected' : True})
+#     print(selected_lala)
