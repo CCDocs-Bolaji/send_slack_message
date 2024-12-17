@@ -2,13 +2,7 @@ import requests
 from bs4 import BeautifulSoup as BS
 from datetime import datetime, timedelta
 import pytz
-from os import getenv
-from dotenv import load_dotenv
-
-load_dotenv()
-
-user = getenv('SERVER_USER')
-passwd = getenv('SERVER_PASS')
+from config import USER, PASS #, SLACK_CHANNELS, BOLAJI, ALEJANDRO
 
 # Set the timezone to EST
 est = pytz.timezone('US/Eastern')
@@ -16,11 +10,11 @@ est = pytz.timezone('US/Eastern')
 # Calculate 30 minutes ago in EST
 now = datetime.now(est)
 thirty_minutes_ago = now - timedelta(minutes=30)
+base_url = f'https://{USER}:{PASS}@login.theccdocs.com'
+url = f"{base_url}/vicidial/admin.php?ADD=700000000000000"
+response = requests.get(url)
 
-url = f"https://{user}:{passwd}@login.theccdocs.com/vicidial/admin.php?ADD=700000000000000"
-re = requests.get(url)
-
-soup = BS(re.content, 'html.parser')
+soup = BS(response.content, 'html.parser')
 
 rows = soup.find_all('tr', class_=['records_list_x', 'records_list_y'])
 
@@ -51,14 +45,16 @@ for row in rows:
             row_time = est.localize(row_time)
             if row_time >= thirty_minutes_ago:
                 href = link_10th_td['href']
-                print("Href:", href)
+                list_url = f'{base_url}{href}'
+                list_page = requests.get(list_url)
+                if list_page.status_code == 200:
+                    new_soup = BS(list_page.content, 'html.parser')
+                    campaign = new_soup.find('select', attrs={'name': 'campaign_id'}).find('option', attrs={'selected': True}).text.strip()
+                    list_id = new_soup.find('tr', attrs={'bgcolor': '#B6D3FC'}).find('b').text.strip()
+                    print(f"Campaign is {campaign}, while List ID is {list_id}")
             # count+=1
 
-# UPDATE
-# url = f"https://{user}:{passwd}@login.theccdocs.com/vicidial/admin.php?ADD=311&list_id=1678"
-# re = requests.get(url)
-# soup = BS(re.content, 'html.parser')
-# if re.status_code == 200:
-#     lala = soup.find('select', attrs={'name': 'campaign_id'})
-#     selected_lala = lala.find('option', attrs={'selected' : True})
-#     print(selected_lala)
+
+
+            # TO-DO:
+            # Have slackbot send a notification to the appropriate channel and tag me and alejandro that a new list has been added
