@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup as BS
 from datetime import datetime, timedelta
 import pytz
-from config import USER, PASS #, SLACK_CHANNELS, BOLAJI, ALEJANDRO
+from config import USER, PASS, SLACK_CHANNELS, BOLAJI, ALEJANDRO, SLACK_BOT
 
 # Set the timezone to EST
 est = pytz.timezone('US/Eastern')
