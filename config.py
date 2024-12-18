@@ -1,12 +1,18 @@
+import json
 from os import getenv
 from dotenv import load_dotenv
 
 load_dotenv()
 
-USER = getenv('SERVER_USER')
-PASS = getenv('SERVER_PASS')
+USER = getenv('CCDOCS_SERVER_USER')
+PASS = getenv('CCDOCS_SERVER_PASS')
 
-SLACK_CHANNELS = getenv('CHANNELS')
+ROOFCON_USER = getenv('CORNERSTONE_USER')
+ROOFCON_PASS = getenv('CORNERSTONE_PASS')
+
+SLACK_CHANNELS = json.loads(getenv('CCDOCS_SLACK_CHANNELS', '{}'))
+CORNERSTONE_SLACK_CHANNEL = getenv('CORNERSTONE_SLACK_CHANNEL')
+
 BOLAJI = getenv('BOLAJI')
 ALEJANDRO = getenv('ALEJANDRO')
 SLACK_BOT = getenv('SLACKBOT')
