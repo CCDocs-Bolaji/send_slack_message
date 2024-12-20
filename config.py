@@ -4,6 +4,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# NOTE : These variables are hardcoded on the CCDOCS server, there is no .env file
+
 USER = getenv('CCDOCS_SERVER_USER')
 PASS = getenv('CCDOCS_SERVER_PASS')
 
@@ -16,5 +18,3 @@ CORNERSTONE_SLACK_CHANNEL = getenv('CORNERSTONE_SLACK_CHANNEL')
 BOLAJI = getenv('BOLAJI')
 ALEJANDRO = getenv('ALEJANDRO')
 SLACK_BOT = getenv('SLACKBOT')
-
-# TO-DO : ADD SIERRA AND SUNSHINE SOLUTIONS TO SLACK_CHANNELS
