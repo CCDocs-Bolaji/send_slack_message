@@ -4,8 +4,7 @@ from bs4 import BeautifulSoup as BS
 from datetime import datetime, timedelta
 import pytz
 from config import (
-    USER, PASS, SLACK_CHANNELS, BOLAJI, ALEJANDRO, SLACK_BOT, 
-    ROOFCON_USER, ROOFCON_PASS, CORNERSTONE_SLACK_CHANNEL
+    USER, PASS, SLACK_CHANNELS, BOLAJI, ALEJANDRO, SLACK_BOT
 )
 import time
 
@@ -16,11 +15,7 @@ SERVERS = [
         "base_url": f"https://{USER}:{PASS}@login.theccdocs.com",
         "channel_mapper": SLACK_CHANNELS,
     },
-    {
-        "name": "CORNERSTONE",
-        "base_url": f"https://{ROOFCON_USER}:{ROOFCON_PASS}@cornerconstruction.ccdocs.com",
-        "channel": CORNERSTONE_SLACK_CHANNEL,
-    }
+    # ADD EXTERNAL SERVER NAME, BASE_URL, AND CHANNEL ID HERE
 ]
 
 # Setup logging
